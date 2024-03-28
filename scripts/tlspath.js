@@ -18,22 +18,7 @@ if (platform === "win32") {
   filename = "tls-client-linux";
   extension = "so";
 
-  let releaseDetails = fs.readFileSync("/etc/os-release", "utf8");
-  const lines = releaseDetails.split("\n");
-  const release = {};
-  lines.forEach((line, _) => {
-    // Split the line into an array of words delimited by '='
-    const words = line.split("=");
-    release[words[0].trim().toLowerCase()] = words[1].trim();
-  });
-
-  if (release.id.toLowerCase().includes("ubuntu")) {
-    distribution = "ubuntu-amd64";
-  } else if (release.id.toLowerCase().includes("alpine")) {
-    distribution = `alpine-amd64`;
-  } else {
-    distribution = arch == "arm64" ? arch : "armv7";
-  }
+  distribution = "ubuntu-amd64";
 } else {
   console.error(`Unsupported platform: ${platform}`);
   process.exit(1);
